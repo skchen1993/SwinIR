@@ -37,15 +37,19 @@ To train SwinIR, run the following commands. You may need to change the `dataroo
 
 
 
-To train SwinIR, run the following commands. You may need to modified the related .json file:
+To train SwinIR, run the following commands. You may need to modified the related .json file:  
 (EX: classical SR, using `options/swinir/train_swinir_sr_classical.json` ),    
 `dataroot_H`   : path for training set, high resolution image(groud truth),  
 `dataroot_L`   : path for training set, low resolution image,  
 `scale factor` : setting scale for training (SR: 2,3,4,...),  
 
-
-
-
+Also, modified the args below(you may directly modified it in `main_train_psnr.py`, or write it in the command )    
+`--opt`           : path to related .json file,    
+`--scale`         : setting scale for testing (SR: 2,3,4,...),    
+`--folder_lq`     : path for testing set, low resolution image,  
+`--folder_gt`     : path for testing set, high resolution image(groud truth),    
+`--model_save_dir`: path for saving model
+`--chart_save_dir`: path for saving chart
 
 
 ```python
