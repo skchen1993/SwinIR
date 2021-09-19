@@ -33,6 +33,7 @@ Training and testing sets can be downloaded as follows. Please put them in `trai
 
 
 ### Training
+First, prepare the training and testing dataset mentioned above for specific task.  
 
 To train SwinIR, run the following commands. You may need to modified the related .json file:  
 (EX: classical SR, using `options/swinir/train_swinir_sr_classical.json` ),    
