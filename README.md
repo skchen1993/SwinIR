@@ -46,8 +46,8 @@ And, modified the args below(you may directly modified it in `main_train_psnr.py
 `--scale`         : setting scale for testing (SR: 2,3,4,...),    
 `--folder_lq`     : path for testing set, low resolution image,  
 `--folder_gt`     : path for testing set, high resolution image(groud truth),    
-`--model_save_dir`: path for saving model
-`--chart_save_dir`: path for saving chart
+`--model_save_dir`: path for saving model  
+`--chart_save_dir`: path for saving chart  
 
 
 ```python
