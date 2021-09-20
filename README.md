@@ -54,12 +54,12 @@ And, modified the args below(you may directly modified it in `main_train_psnr.py
 `--chart_save_dir`: path for saving chart  
 
 ## checkpoint setting 
-(`checkpoint_test`, `checkpoint_save`, `checkpoint_print`)  
+(`checkpoint_test`, `checkpoint_save`, `checkpoint_print` in `options/swinir/train_swinir_sr_classical.json`)  
 In original setting, the model would:  
 print the training message for every 200 iterations,  
 saving model for every 5000 iterations,  
 testing with set5 in training process every 5000 iterations,  
-It can be modified in `options/swinir/train_swinir_sr_classical.json`  
+Noted that: one iteration means one parameter update  
 
 
 ```python
