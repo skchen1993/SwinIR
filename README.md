@@ -1,4 +1,5 @@
-# skchen Branch 
+skchen branch
+ 
 # SwinIR
 experiment for reproducing SwinIR result (NYCU VLlab)
 
@@ -38,7 +39,6 @@ pytorch  : 1.9.0 + cu102
 
 
 ### Training
-
 To train SwinIR, run the following commands. You may need to modified the related .json file:  
 (EX: classical SR, using `options/swinir/train_swinir_sr_classical.json` ),    
 `dataroot_H`   : path for training set, high resolution image(groud truth),  
@@ -54,7 +54,7 @@ And, modified the args below(you may directly modified it in `main_train_psnr.py
 `--model_save_dir`: path for saving model  
 `--chart_save_dir`: path for saving chart  
 
-## checkpoint setting 
+checkpoint setting:   
 (`checkpoint_test`, `checkpoint_save`, `checkpoint_print` in `options/swinir/train_swinir_sr_classical.json`)  
 In original setting, the model would:  
 print the training message for every 200 iterations,  
@@ -62,6 +62,8 @@ saving model for every 5000 iterations,
 testing with set5 in training process every 5000 iterations,  
 Noted that: one iteration means one parameter update  
 
+
+usev `train.sh` or the command below for training:     
 
 ```python
 # 001 Classical Image SR (middle size)
@@ -105,7 +107,7 @@ Note:
 ## Testing
 Following command will download the [pretrained models](https://github.com/JingyunLiang/SwinIR/releases/tag/v0.0) and put them in `model_zoo/swinir`. All visual results of SwinIR can be downloaded [here](https://github.com/JingyunLiang/SwinIR/releases/tag/v0.0).
 
-If you are too lazy to prepare the datasets, please follow the guide in the [original project page](https://github.com/JingyunLiang/SwinIR#testing-without-preparing-datasets), where you can start testing in a minute. We also provide an [online Colab demo for real-world image SR  <a href="https://colab.research.google.com/gist/JingyunLiang/a5e3e54bc9ef8d7bf594f6fee8208533/swinir-demo-on-real-world-image-sr.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="google colab logo"></a>](https://colab.research.google.com/gist/JingyunLiang/a5e3e54bc9ef8d7bf594f6fee8208533/swinir-demo-on-real-world-image-sr.ipynb) for comparison with [the first practical degradation model BSRGAN (ICCV2021)  ![GitHub Stars](https://img.shields.io/github/stars/cszn/BSRGAN?style=social)](https://github.com/cszn/BSRGAN) and a recent model [RealESRGAN](https://github.com/xinntao/Real-ESRGAN). Try to test your own images on Colab!
+use `sh test.sh` or command below for testing:  
 
 ```bash
 # 001 Classical Image Super-Resolution (middle size)
