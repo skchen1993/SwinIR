@@ -1,4 +1,4 @@
-skchen branch
+## skchen branch
  
 # SwinIR
 experiment for reproducing SwinIR result (NYCU VLlab)
@@ -63,7 +63,7 @@ testing with set5 in training process every 5000 iterations,
 Noted that: one iteration means one parameter update  
 
 
-usev `train.sh` or the command below for training:     
+use `sh train.sh` or the command below for training:     
 
 ```python
 # 001 Classical Image SR (middle size)
