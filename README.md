@@ -1,6 +1,6 @@
-# Git test 
+ 
 # SwinIR
-experiment for reproducing SwinIR result
+experiment for reproducing SwinIR result (NYCU VLlab)
 
 # SwinIR: Image Restoration Using Shifted Window Transformer
 [paper](https://arxiv.org/abs/2108.10257)
