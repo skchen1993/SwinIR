@@ -211,8 +211,8 @@ def main():
 
             current_step += 1
 
-            if opt['rank'] == 0:
-                print(current_step)
+            if opt['rank'] == 0 and current_step % 100 == 0:
+                print("Current step: ", current_step)
             # -------------------------------
             # 1) update learning rate
             # -------------------------------
