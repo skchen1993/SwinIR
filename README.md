@@ -168,7 +168,7 @@ python main_test_swinir.py --task jpeg_car --jpeg 40 --model_path model_zoo/swin
 ---
 
 Note:
-1, test(`test.sh`) result would be saved in `/home/skchen/github_prac_SwinIR/SwinIR/results/swinir_classical_sr_x2/`  
+1, test(`test.sh`) result would be saved in `SwinIR/results/swinir_classical_sr_x2/`  
 
 ## Results
 <details>
