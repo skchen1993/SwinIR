@@ -54,12 +54,12 @@ def main():
     parser.add_argument('--noise', type=int, default=15, help='noise level: 15, 25, 50')
     parser.add_argument('--jpeg', type=int, default=40, help='scale factor: 10, 20, 30, 40')
       #在此設定testing set路徑
-    parser.add_argument('--folder_lq', type=str, default="/home/skchen/dataset/IPT_data/X2/benchmark/Set5/LR_bicubic/X2_swinIR/", help='input low-quality test image folder')
-    parser.add_argument('--folder_gt', type=str, default="/home/skchen/dataset/IPT_data/X2/benchmark/Set5/HR/", help='input ground-truth test image folder')
+    parser.add_argument('--folder_lq', type=str, default="./testsets/set5/LR_bicubic/X2/", help='input low-quality test image folder')
+    parser.add_argument('--folder_gt', type=str, default="./testsets/set5/HR/", help='input ground-truth test image folder')
     #----improved model saving path----
-    parser.add_argument('--model_save_dir', type=str, default="/home/skchen/ML_practice/KAIR/superresolution/swinir_sr_classical_patch48_x2/models/improved/", help='if model get performance improved, save model to this path')
+    parser.add_argument('--model_save_dir', type=str, default="./superresolution/swinir_sr_classical_patch48_x2/models/improved/", help='if model get performance improved, save model to this path')
     #----chart saving path-------------
-    parser.add_argument('--chart_save_dir',type=str, default="/home/skchen/ML_practice/KAIR/set5test_results/chart/", help='path for chart saving')
+    parser.add_argument('--chart_save_dir',type=str, default="./set5test_results/chart/", help='path for chart saving')
 
     args = parser.parse_args()
 
@@ -237,6 +237,7 @@ def main():
             lr_y.append(model.current_learning_rate())
             train_l1_y.append(logs['G_loss'])
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
+            #if  current_step % 10 == 0 and opt['rank'] == 0:
                 message = '<epoch:{:3d}, iter:{:8,d}, lr:{:.3e}> '.format(epoch, current_step, model.current_learning_rate())
                 for k, v in logs.items():  # merge log information into message
                     message += '{:s}: {:.3e} '.format(k, v)
@@ -248,7 +249,7 @@ def main():
             # 5) testing
             # -------------------------------
             if current_step % opt['train']['checkpoint_test'] == 0 and opt['rank'] == 0:
-            #if current_step % 50 == 0 :
+            #if current_step % 50 == 0 and opt['rank'] == 0:
                 print(" ----set5 validation---")
                 print("current_step: ", current_step)
                 psnr_y  = set5test.validate_set5(args, model)
@@ -262,7 +263,7 @@ def main():
             # 6) save model
             # -------------------------------
             if current_step % opt['train']['checkpoint_save'] == 0 and opt['rank'] == 0:
-            #if current_step % 50 == 0:
+            #if current_step % 50 == 0 and opt['rank'] == 0:
                 logger.info('Saving the model.')
                 print("saving model")
                 model.save(current_step)
