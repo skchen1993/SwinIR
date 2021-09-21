@@ -62,7 +62,7 @@ testing with set5 in training process every 5000 iterations,
 Noted that: one iteration means one parameter update  
 
 
-use `sh train.sh` for classical SR x2 training (distributed training) 
+use `sh train.sh` for classical SR x2 training (distributed training)   
 or the command below for training:     
 
 ```python
@@ -107,7 +107,7 @@ Note:
 ## Testing
 Following command will download the [pretrained models](https://github.com/JingyunLiang/SwinIR/releases/tag/v0.0) and put them in `model_zoo/swinir`. All visual results of SwinIR can be downloaded [here](https://github.com/JingyunLiang/SwinIR/releases/tag/v0.0).
 
-use `sh test.sh`  for classical SR x2 testing
+use `sh test.sh`  for classical SR x2 testing  
 or command below for testing:  
 
 ```bash
