@@ -21,7 +21,7 @@ from data.select_dataset import define_Dataset
 from models.select_model import define_Model
 
 import matplotlib.pyplot as plt
-
+from utils import  utils_progressbar as pg
 '''
 # --------------------------------------------
 # training code for SwinIR
@@ -208,12 +208,14 @@ def main():
     psnr_y_record = 0
 
     for epoch in range(500000):  # keep running, is current_step that matter
+        l1_loss = 0
+        
         for i, train_data in enumerate(train_loader):
 
             current_step += 1
 
-            if opt['rank'] == 0 and current_step % 100 == 0:
-                print("Current step: ", current_step)
+            #if opt['rank'] == 0 and current_step % 100 == 0:
+            #   print("Current step: ", current_step)
             # -------------------------------
             # 1) update learning rate
             # -------------------------------
@@ -267,6 +269,10 @@ def main():
                 logger.info('Saving the model.')
                 print("saving model")
                 model.save(current_step)
+
+            if opt['rank'] == 0: 
+                l1_loss += logs['G_loss']
+                pg.progress_bar(i, len(train_loader), 'l1Loss: %.3f' % (l1_loss/(i+1)))
 
         # chart plot
         if current_step % 5000 == 0 and opt['rank'] == 0:

@@ -3590,3 +3590,661 @@
 21-09-21 20:20:27.389 : <epoch:  2, iter:     600, lr:1.000e-04> G_loss: 3.527e-02 
 21-09-21 20:21:20.858 : <epoch:  3, iter:     800, lr:1.000e-04> G_loss: 3.656e-02 
 21-09-21 20:22:14.472 : <epoch:  4, iter:   1,000, lr:1.000e-04> G_loss: 2.274e-02 
+21-09-21 20:28:49.584 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 8
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 2
+
+21-09-21 20:28:49.592 : Number of train images: 800, iters: 100
+21-09-21 20:29:46.008 : <epoch:  0, iter:     200, lr:1.000e-04> G_loss: 5.590e-02 
+21-09-21 20:39:37.888 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 8
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 2
+
+21-09-21 20:39:37.895 : Number of train images: 800, iters: 100
+21-09-21 22:58:31.196 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 16
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 4
+
+21-09-21 22:58:31.206 : Number of train images: 800, iters: 50
+21-09-21 23:00:34.720 : <epoch:  3, iter:     200, lr:1.000e-04> G_loss: 2.926e-02 
+21-09-21 23:02:33.444 : <epoch:  7, iter:     400, lr:1.000e-04> G_loss: 2.407e-02 
+21-09-21 23:04:30.969 : <epoch: 11, iter:     600, lr:1.000e-04> G_loss: 1.980e-02 
+21-09-21 23:06:31.280 : <epoch: 15, iter:     800, lr:1.000e-04> G_loss: 2.635e-02 
+21-09-21 23:08:32.179 : <epoch: 19, iter:   1,000, lr:1.000e-04> G_loss: 1.769e-02 
+21-09-21 23:11:15.832 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 16
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 4
+
+21-09-21 23:11:15.841 : Number of train images: 800, iters: 50
+21-09-21 23:13:20.221 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 16
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 4
+
+21-09-21 23:13:20.234 : Number of train images: 800, iters: 50
+21-09-21 23:15:29.370 : <epoch:  3, iter:     200, lr:1.000e-04> G_loss: 4.931e-02 
+21-09-21 23:17:43.068 : <epoch:  7, iter:     400, lr:1.000e-04> G_loss: 4.619e-02 
+21-09-21 23:19:56.935 : <epoch: 11, iter:     600, lr:1.000e-04> G_loss: 3.157e-02 
+21-09-21 23:22:11.468 : <epoch: 15, iter:     800, lr:1.000e-04> G_loss: 3.050e-02 
+21-09-21 23:24:25.279 : <epoch: 19, iter:   1,000, lr:1.000e-04> G_loss: 1.835e-02 
+21-09-21 23:26:38.318 : <epoch: 23, iter:   1,200, lr:1.000e-04> G_loss: 2.117e-02 
+21-09-21 23:27:59.207 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 16
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 4
+
+21-09-21 23:27:59.213 : Number of train images: 800, iters: 50
+21-09-21 23:42:50.110 :   task: swinir_sr_classical_patch48_x2
+  model: plain
+  gpu_ids: [2, 3, 5, 6]
+  dist: True
+  scale: 2
+  n_channels: 3
+  path:[
+    root: superresolution
+    pretrained_netG: None
+    pretrained_netE: None
+    task: superresolution/swinir_sr_classical_patch48_x2
+    log: superresolution/swinir_sr_classical_patch48_x2
+    options: superresolution/swinir_sr_classical_patch48_x2/options
+    models: superresolution/swinir_sr_classical_patch48_x2/models
+    images: superresolution/swinir_sr_classical_patch48_x2/images
+    pretrained_optimizerG: None
+  ]
+  datasets:[
+    train:[
+      name: train_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_train_LR_bicubic/X2/
+      H_size: 96
+      dataloader_shuffle: True
+      dataloader_num_workers: 16
+      dataloader_batch_size: 16
+      phase: train
+      scale: 2
+      n_channels: 3
+    ]
+    test:[
+      name: test_dataset
+      dataset_type: sr
+      dataroot_H: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_HR/
+      dataroot_L: /home/skchen/dataset/IPT_data/DIV2K/DIV2K_tiny_LR_bicubic/X2/
+      phase: test
+      scale: 2
+      n_channels: 3
+    ]
+  ]
+  netG:[
+    net_type: swinir
+    upscale: 2
+    in_chans: 3
+    img_size: 48
+    window_size: 8
+    img_range: 1.0
+    depths: [6, 6, 6, 6, 6, 6]
+    embed_dim: 180
+    num_heads: [6, 6, 6, 6, 6, 6]
+    mlp_ratio: 2
+    upsampler: pixelshuffle
+    resi_connection: 1conv
+    init_type: default
+    scale: 2
+  ]
+  train:[
+    G_lossfn_type: l1
+    G_lossfn_weight: 1.0
+    E_decay: 0.999
+    G_optimizer_type: adam
+    G_optimizer_lr: 0.0001
+    G_optimizer_wd: 0
+    G_optimizer_clipgrad: None
+    G_optimizer_reuse: True
+    G_scheduler_type: MultiStepLR
+    G_scheduler_milestones: [250000, 400000, 450000, 475000, 500000]
+    G_scheduler_gamma: 0.5
+    G_regularizer_orthstep: None
+    G_regularizer_clipstep: None
+    G_param_strict: True
+    E_param_strict: True
+    checkpoint_test: 5000
+    checkpoint_save: 5000
+    checkpoint_print: 200
+    F_feature_layer: 34
+    F_weights: 1.0
+    F_lossfn_type: l1
+    F_use_input_norm: True
+    F_use_range_norm: False
+  ]
+  opt_path: options/swinir/train_swinir_sr_classical.json
+  is_train: True
+  merge_bn: False
+  merge_bn_startpoint: -1
+  find_unused_parameters: True
+  num_gpu: 4
+  rank: 0
+  world_size: 4
+
+21-09-21 23:42:50.124 : Number of train images: 800, iters: 50
+21-09-21 23:44:55.614 : <epoch:  3, iter:     200, lr:1.000e-04> G_loss: 4.452e-02 
+21-09-21 23:46:55.374 : <epoch:  7, iter:     400, lr:1.000e-04> G_loss: 2.331e-02 
