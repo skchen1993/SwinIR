@@ -46,7 +46,9 @@ To train SwinIR, run the following commands. You may need to modified the relate
 and also,  `noisel level`, `JPEG level`, `G_optimizer_lr`, `G_scheduler_milestones`, etc. in the json file could be modified for different experiment scnario.  
 
 ⭐⭐  
-To do the GPU device selection, please use `CUDA_VISIBLE_DEVICES=0,3,....`in`train.sh `, or directly write it into command line.  
+(0921)
+To do the GPU device selection, please use `CUDA_VISIBLE_DEVICES=0,3,....`in`train.sh `, or directly write it into command line like:  
+ `CUDA_VISIBLE_DEVICES=0,3 python -m torch.distributed.launch --nproc_per_node=2 --master_port=1234 main_train_psnr.py --opt options/swinir/train_swinir_sr_classical.json  --dist True `  
 `gpu_ids` in `options/swinir/train_swinir_sr_classical.json` seems doesn't work....still finding the reason.    
 ⭐⭐  
 
