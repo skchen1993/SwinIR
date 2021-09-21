@@ -39,9 +39,10 @@ pytorch  : 1.9.0 + cu102
 ### Training
 To train SwinIR, run the following commands. You may need to modified the related .json file:  
 (EX: classical SR, using `options/swinir/train_swinir_sr_classical.json` ),    
-`dataroot_H`   : path for training set, high resolution image(groud truth),  
-`dataroot_L`   : path for training set, low resolution image,  
-`scale factor` : setting scale for training (SR: 2,3,4,...),   
+`dataroot_H`            : path for training set, high resolution image(groud truth),  
+`dataroot_L`            : path for training set, low resolution image,  
+`scale factor`          : setting scale for training (SR: 2,3,4,...),   
+`dataloader_batch_size` : set the training batch size,   
 and also,  `noisel level`, `JPEG level`, `G_optimizer_lr`, `G_scheduler_milestones`, etc. in the json file could be modified for different experiment scnario.
 
 And, modified the args below(you may directly modified it in `main_train_psnr.py`, or write it in the command )    
@@ -50,7 +51,7 @@ And, modified the args below(you may directly modified it in `main_train_psnr.py
 `--folder_lq`     : path for testing set, low resolution image,  
 `--folder_gt`     : path for testing set, high resolution image(groud truth),    
 `--model_save_dir`: path for saving model  
-`--chart_save_dir`: path for saving chart  
+`--chart_save_dir`: path for saving chart   
 
 checkpoint setting:   
 (`checkpoint_test`, `checkpoint_save`, `checkpoint_print` in `options/swinir/train_swinir_sr_classical.json`)  
@@ -61,7 +62,7 @@ testing with set5 in training process every 5000 iterations,
 Noted that: one iteration means one parameter update  
 
 
-use `sh train.sh` for classical SR x2 training  
+use `sh train.sh` for classical SR x2 training (distributed training) 
 or the command below for training:     
 
 ```python
