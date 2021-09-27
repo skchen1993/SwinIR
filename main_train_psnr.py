@@ -235,9 +235,9 @@ def main():
             # 4) training information
             # -------------------------------
             logs = model.current_log()  # such as loss
-            iter.append(current_step)
-            lr_y.append(model.current_learning_rate())
-            train_l1_y.append(logs['G_loss'])
+            #iter.append(current_step)
+            #lr_y.append(model.current_learning_rate())
+            #train_l1_y.append(logs['G_loss'])
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
             #if  current_step % 10 == 0 and opt['rank'] == 0:
                 message = '<epoch:{:3d}, iter:{:8,d}, lr:{:.3e}> '.format(epoch, current_step, model.current_learning_rate())
@@ -255,11 +255,13 @@ def main():
                 print(" ----set5 validation---")
                 print("current_step: ", current_step)
                 psnr_y  = set5test.validate_set5(args, model)
-                set5valid_x.append(current_step)
-                set5valid_y.append(psnr_y)
+                #set5valid_x.append(current_step)
+                #set5valid_y.append(psnr_y)
                 if (psnr_y > psnr_y_record):
                     model.save_better_model(psnr_y, args, current_step )
                 psnr_y_record = psnr_y
+                message = "------------------validation at " + str(current_step) + " iter, PSNR = " + str(psnr_y_record) + "---------------------"
+                logger.info(message)
 
             # -------------------------------
             # 6) save model
@@ -274,6 +276,7 @@ def main():
                 l1_loss += logs['G_loss']
                 pg.progress_bar(i, len(train_loader), 'l1Loss: %.3f' % (l1_loss/(i+1)))
 
+        """        
         # chart plot
         if current_step % 5000 == 0 and opt['rank'] == 0:
             dir_chart = args.chart_save_dir
@@ -302,7 +305,7 @@ def main():
             plt.legend()
             dir3 = os.path.join(dir_chart, "SwinIR_psnr.png")
             plt.savefig(dir3)
-
+        """
 
 if __name__ == '__main__':
     main()
