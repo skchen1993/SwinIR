@@ -1,9 +1,10 @@
-#sync test
+# sync test 0929_7pm
 import os.path
 import math
 import argparse
 import random
 import numpy as np
+import pickle
 
 import logging
 from torch.utils.data import DataLoader
@@ -61,6 +62,8 @@ def main():
     #----chart saving path-------------
     parser.add_argument('--chart_save_dir',type=str, default="./set5test_results/chart/", help='path for chart saving')
 
+
+
     args = parser.parse_args()
 
     #parser.parse_args().opt = /.../train_swinir_sr_classical.json
@@ -70,7 +73,7 @@ def main():
 
     # ----------------------------------------
     # distributed settings
-    # ----------------------------------------
+    # ------------------------------------ㄈ----
     if opt['dist']:
         init_dist('pytorch')
     opt['rank'], opt['world_size'] = get_dist_info()
@@ -199,11 +202,33 @@ def main():
     # milestones": [250000, 400000, 450000, 475000, 500000] => half the lr
 
     # list for chart plotting
+    #---check if there is histroy record in directory---
     iter = []
-    lr_y=[]
+    #lr_y=[]
     train_l1_y=[]
     set5valid_x = []
     set5valid_y = []
+
+    record_path = args.chart_save_dir
+    iter_record = os.path.join(record_path, "iter.txt")
+    train_l1_y_record = os.path.join(record_path, "train_l1_y.txt")
+    set5valid_x_record = os.path.join(record_path, "set5valid_x.txt")
+    set5valid_y_record = os.path.join(record_path, "set5valid_y.txt")
+
+    try:
+        with open(iter_record, "rb") as fp:
+            iter = pickle.load(fp)
+        with open(train_l1_y_record, "rb") as fp:
+            train_l1_y = pickle.load(fp)
+        with open(set5valid_x_record, "rb") as fp:
+            set5valid_x = pickle.load(fp)
+        with open(set5valid_y_record, "rb") as fp:
+            set5valid_y = pickle.load(fp)
+    except:
+        print("initialize empty list for record training record!")
+
+
+
 
     psnr_y_record = 0
 
@@ -214,8 +239,6 @@ def main():
 
             current_step += 1
 
-            #if opt['rank'] == 0 and current_step % 100 == 0:
-            #   print("Current step: ", current_step)
             # -------------------------------
             # 1) update learning rate
             # -------------------------------
@@ -235,9 +258,9 @@ def main():
             # 4) training information
             # -------------------------------
             logs = model.current_log()  # such as loss
-            #iter.append(current_step)
+            iter.append(current_step)
             #lr_y.append(model.current_learning_rate())
-            #train_l1_y.append(logs['G_loss'])
+            train_l1_y.append(logs['G_loss'])
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
             #if  current_step % 10 == 0 and opt['rank'] == 0:
                 message = '<epoch:{:3d}, iter:{:8,d}, lr:{:.3e}> '.format(epoch, current_step, model.current_learning_rate())
@@ -255,8 +278,8 @@ def main():
                 print(" ----set5 validation---")
                 print("current_step: ", current_step)
                 psnr_y  = set5test.validate_set5(args, model)
-                #set5valid_x.append(current_step)
-                #set5valid_y.append(psnr_y)
+                set5valid_x.append(current_step)
+                set5valid_y.append(psnr_y)
                 if (psnr_y > psnr_y_record):
                     model.save_better_model(psnr_y, args, current_step )
                 psnr_y_record = psnr_y
@@ -271,24 +294,27 @@ def main():
                 logger.info('Saving the model.')
                 print("saving model")
                 model.save(current_step)
+                with open(iter_record, "wb") as fp:
+                    pickle.dump(iter, fp)
+                with open(train_l1_y_record, "wb") as fp:
+                    pickle.dump(train_l1_y, fp)
+                with open(set5valid_x_record, "wb") as fp:
+                    pickle.dump(set5valid_x, fp)
+                with open(set5valid_y_record, "wb") as fp:
+                    pickle.dump(set5valid_y, fp)
+
 
             if opt['rank'] == 0: 
                 l1_loss += logs['G_loss']
                 pg.progress_bar(i, len(train_loader), 'l1Loss: %.3f' % (l1_loss/(i+1)))
 
-        """        
+
         # chart plot
         if current_step % 5000 == 0 and opt['rank'] == 0:
+        #if current_step % 50 == 0 and opt['rank'] == 0:
             dir_chart = args.chart_save_dir
             info = "--------------chart plot=>   epoch: " + str(epoch) + ", current_step: " + str(current_step) + "-----------"
             logger.info(info)
-            plt.figure(figsize=(10, 7))
-            plt.plot(iter, lr_y, color='orange', label='lr_scheduler')
-            plt.xlabel('current_step')
-            plt.ylabel('lr')
-            plt.legend()
-            dir1 = os.path.join(dir_chart, "SwinIR_lr.png")
-            plt.savefig(dir1)
 
             plt.figure(figsize=(10, 7))
             plt.plot(iter, train_l1_y, color='orange', label='l1_loss')
@@ -305,7 +331,7 @@ def main():
             plt.legend()
             dir3 = os.path.join(dir_chart, "SwinIR_psnr.png")
             plt.savefig(dir3)
-        """
+
 
 if __name__ == '__main__':
     main()
