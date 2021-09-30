@@ -1,4 +1,4 @@
-# sync test 0929_7pm
+# sync test 0930_9pm
 import os.path
 import math
 import argparse
@@ -21,7 +21,6 @@ from utils.utils_dist import get_dist_info, init_dist
 from data.select_dataset import define_Dataset
 from models.select_model import define_Model
 
-import matplotlib.pyplot as plt
 from utils import  utils_progressbar as pg
 '''
 # --------------------------------------------
@@ -204,7 +203,6 @@ def main():
     # list for chart plotting
     #---check if there is histroy record in directory---
     iter = []
-    #lr_y=[]
     train_l1_y=[]
     set5valid_x = []
     set5valid_y = []
@@ -259,7 +257,6 @@ def main():
             # -------------------------------
             logs = model.current_log()  # such as loss
             iter.append(current_step)
-            #lr_y.append(model.current_learning_rate())
             train_l1_y.append(logs['G_loss'])
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
             #if  current_step % 10 == 0 and opt['rank'] == 0:
@@ -307,30 +304,6 @@ def main():
             if opt['rank'] == 0: 
                 l1_loss += logs['G_loss']
                 pg.progress_bar(i, len(train_loader), 'l1Loss: %.3f' % (l1_loss/(i+1)))
-
-
-        # chart plot
-        if current_step % 5000 == 0 and opt['rank'] == 0:
-        #if current_step % 50 == 0 and opt['rank'] == 0:
-            dir_chart = args.chart_save_dir
-            info = "--------------chart plot=>   epoch: " + str(epoch) + ", current_step: " + str(current_step) + "-----------"
-            logger.info(info)
-
-            plt.figure(figsize=(10, 7))
-            plt.plot(iter, train_l1_y, color='orange', label='l1_loss')
-            plt.xlabel('current_step')
-            plt.ylabel('l1_loss')
-            plt.legend()
-            dir2 = os.path.join(dir_chart, "SwinIR_l1loss.png")
-            plt.savefig(dir2)
-
-            plt.figure(figsize=(10, 7))
-            plt.plot(set5valid_x, set5valid_y, color='orange', label='psnr_y')
-            plt.xlabel('current_step')
-            plt.ylabel('psnr')
-            plt.legend()
-            dir3 = os.path.join(dir_chart, "SwinIR_psnr.png")
-            plt.savefig(dir3)
 
 
 if __name__ == '__main__':
