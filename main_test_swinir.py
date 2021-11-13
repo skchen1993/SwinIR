@@ -125,7 +125,7 @@ def define_model(args):
         model = net(upscale=args.scale, in_chans=3, img_size=args.training_patch_size, window_size=8,
                     img_range=1., depths=[6, 6, 6, 6, 6, 6], embed_dim=180, num_heads=[6, 6, 6, 6, 6, 6],
                     mlp_ratio=2, upsampler='pixelshuffle', resi_connection='1conv')
-        model.load_state_dict(torch.load(args.model_path)['params'], strict=True)
+        model.load_state_dict(torch.load(args.model_path), strict=True)
 
     # 002 lightweight image sr
     # use 'pixelshuffledirect' to save parameters
