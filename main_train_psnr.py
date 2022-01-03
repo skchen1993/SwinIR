@@ -5,7 +5,7 @@ import argparse
 import random
 import numpy as np
 import pickle
-
+import wandb
 import logging
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
@@ -36,6 +36,7 @@ from utils import  utils_progressbar as pg
 
 def main():
     print("----project SwinIR------")
+     wandb.init(project="SwinIR", entity="skchen")
 
     '''
     # ----------------------------------------
@@ -256,8 +257,9 @@ def main():
             # 4) training information
             # -------------------------------
             logs = model.current_log()  # such as loss
-            iter.append(current_step)
-            train_l1_y.append(logs['G_loss'])
+
+            wandb.log({"train_l1_loss": logs['G_loss']})
+
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
             #if  current_step % 10 == 0 and opt['rank'] == 0:
                 message = '<epoch:{:3d}, iter:{:8,d}, lr:{:.3e}> '.format(epoch, current_step, model.current_learning_rate())
@@ -275,8 +277,9 @@ def main():
                 print(" ----set5 validation---")
                 print("current_step: ", current_step)
                 psnr_y  = set5test.validate_set5(args, model)
-                set5valid_x.append(current_step)
-                set5valid_y.append(psnr_y)
+
+                wandb.log({"val_loss": psnr_y})
+
                 if (psnr_y > psnr_y_record):
                     model.save_better_model(psnr_y, args, current_step )
                 psnr_y_record = psnr_y
@@ -291,14 +294,6 @@ def main():
                 logger.info('Saving the model.')
                 print("saving model")
                 model.save(current_step)
-                with open(iter_record, "wb") as fp:
-                    pickle.dump(iter, fp)
-                with open(train_l1_y_record, "wb") as fp:
-                    pickle.dump(train_l1_y, fp)
-                with open(set5valid_x_record, "wb") as fp:
-                    pickle.dump(set5valid_x, fp)
-                with open(set5valid_y_record, "wb") as fp:
-                    pickle.dump(set5valid_y, fp)
 
 
             if opt['rank'] == 0: 
