@@ -201,33 +201,6 @@ def main():
     #"checkpoint_chart": 5000           // for plotting chart
     # milestones": [250000, 400000, 450000, 475000, 500000] => half the lr
 
-    # list for chart plotting
-    #---check if there is histroy record in directory---
-    iter = []
-    train_l1_y=[]
-    set5valid_x = []
-    set5valid_y = []
-
-    record_path = args.chart_save_dir
-    iter_record = os.path.join(record_path, "iter.txt")
-    train_l1_y_record = os.path.join(record_path, "train_l1_y.txt")
-    set5valid_x_record = os.path.join(record_path, "set5valid_x.txt")
-    set5valid_y_record = os.path.join(record_path, "set5valid_y.txt")
-
-    try:
-        with open(iter_record, "rb") as fp:
-            iter = pickle.load(fp)
-        with open(train_l1_y_record, "rb") as fp:
-            train_l1_y = pickle.load(fp)
-        with open(set5valid_x_record, "rb") as fp:
-            set5valid_x = pickle.load(fp)
-        with open(set5valid_y_record, "rb") as fp:
-            set5valid_y = pickle.load(fp)
-    except:
-        print("initialize empty list for record training record!")
-
-
-
 
     psnr_y_record = 0
 
