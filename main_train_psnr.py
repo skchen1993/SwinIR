@@ -36,7 +36,7 @@ from utils import  utils_progressbar as pg
 
 def main():
     print("----project SwinIR------")
-     wandb.init(project="SwinIR", entity="skchen")
+ 
 
     '''
     # ----------------------------------------
@@ -80,6 +80,9 @@ def main():
     
     if opt['rank'] == 0:
         util.mkdirs((path for key, path in opt['path'].items() if 'pretrained' not in key))
+    if opt['rank'] == 0:
+        wandb.init(project="SwinIR", entity="skchen")
+    
 
     # ----------------------------------------
     # update opt
@@ -231,7 +234,7 @@ def main():
             # -------------------------------
             logs = model.current_log()  # such as loss
 
-            wandb.log({"train_l1_loss": logs['G_loss']})
+            
 
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
             #if  current_step % 10 == 0 and opt['rank'] == 0:
@@ -239,6 +242,7 @@ def main():
                 for k, v in logs.items():  # merge log information into message
                     message += '{:s}: {:.3e} '.format(k, v)
                 logger.info(message)
+                wandb.log({"train_l1_loss": logs['G_loss']})
 
 
 
